@@ -1,6 +1,8 @@
 const { validateEmail, validateLength } = require("../helpers/validation.js");
 const User = require("../models/User.js");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { generateToken } = require("../helpers/token.js");
 
 exports.register = async (req, res) => {
   const {
@@ -62,5 +64,7 @@ exports.register = async (req, res) => {
     bMonth,
     bDay,
   }).save();
+  const token = generateToken({ id: user._id.toString() }, "30m");
+  console.log(token);
   res.json(user);
 };
