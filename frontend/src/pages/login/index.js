@@ -15,6 +15,7 @@ import {
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { ImCross, ImCheckmark } from "react-icons/im";
+import axios from "axios";
 const LoginButton = styled(Button)({
   backgroundColor: "#166FE5",
   color: "#fff",
@@ -88,27 +89,15 @@ const Login = () => {
     }
   };
 
-  let handleSubmit = () => {
-    if (!email) {
-      setEmailerr("Email is required");
-    } else {
-      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        setEmailerr("Valid email is required");
-      }
-    }
-
-    if (!password) {
-      setPassworderr("Password is required");
-    } else if (!/^(?=.*[a-z])/.test(password)) {
-      setPassworderr("Lowercase Required");
-    } else if (!/^(?=.*[A-Z])/.test(password)) {
-      setPassworderr("Uppercase Required");
-    } else if (!/^(?=.*[0-9])/.test(password)) {
-      setPassworderr("Number Required");
-    } else if (!/^(?=.*[!@#$%^&*])/.test(password)) {
-      setPassworderr("Symbol Required");
-    } else if (!/^(?=.{8,})/.test(password)) {
-      setPassworderr("Minimum 8 character");
+  let handleSubmit = async () => {
+    try {
+      let data = await axios.post("http://localhost:8000/login", {
+        email: email,
+        password: password,
+      });
+      console.log(data.data);
+    } catch (error) {
+      console.log(error.response.data.message);
     }
   };
 
@@ -156,55 +145,17 @@ const Login = () => {
                 {passworderr}
               </Alert>
             )}
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-              subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
-                  Password Check
-                </ListSubheader>
-              }
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  {lowercase ? <ImCheckmark /> : <ImCross />}
-                </ListItemIcon>
-                <ListItemText primary="Lowecase" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon>
-                  {uppercase ? <ImCheckmark /> : <ImCross />}
-                </ListItemIcon>
-                <ListItemText primary="Uppercase" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon>
-                  {number ? <ImCheckmark /> : <ImCross />}
-                </ListItemIcon>
-                <ListItemText primary="Number" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon>
-                  {symbol ? <ImCheckmark /> : <ImCross />}
-                </ListItemIcon>
-                <ListItemText primary="Symbol" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemIcon>
-                  {length ? <ImCheckmark /> : <ImCross />}
-                </ListItemIcon>
-                <ListItemText primary="Length" />
-              </ListItemButton>
-            </List>
+
             <LoginButton onClick={handleSubmit}>Log In</LoginButton>
             <Link to="/" className="forgot">
               Forgotten password?
             </Link>
             <div className="line"></div>
-            <div className="regbutton">
-              <RegistrationButton>Create New Account</RegistrationButton>
-            </div>
+            <Link to="/registration">
+              <div className="regbutton">
+                <RegistrationButton>Create New Account</RegistrationButton>
+              </div>
+            </Link>
           </div>
         </Grid>
       </Grid>

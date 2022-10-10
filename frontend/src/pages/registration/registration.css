@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .login img {
   margin-left: -56px;
   margin-top: 158px;
@@ -22,17 +26,6 @@
   border-radius: 5px;
 }
 
-.login a {
-  display: block;
-  text-align: center;
-  margin-top: 25px;
-  color: #1877f2;
-  text-decoration: underline;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-}
-
 .login .line {
   width: 100%;
   height: 1px;
@@ -47,6 +40,26 @@
 .login .dateofbirth {
   display: flex;
   column-gap: 20px;
+}
+
+.login .genderbox {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 41px;
+}
+
+.login .genderselect {
+  border: 1px solid #d9d9d9;
+  padding: 11px 15px;
+  border-radius: 5px;
+}
+
+.login .genderselect span {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  display: inline-block;
+  margin-right: 51px;
 }
 
 @media (min-width: 375px) and (max-width: 599px) {

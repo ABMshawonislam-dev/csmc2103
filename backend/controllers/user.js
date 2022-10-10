@@ -14,7 +14,6 @@ exports.register = async (req, res) => {
     const {
       first_name,
       last_name,
-      username,
       email,
       password,
       gender,
@@ -25,7 +24,7 @@ exports.register = async (req, res) => {
 
     // email validation
     if (!validateEmail(email)) {
-      res.status(400).json({ message: "Invalid Email Address" });
+      return res.status(400).json({ message: "Invalid Email Address" });
     }
 
     // user validation if user exits or not
@@ -33,7 +32,7 @@ exports.register = async (req, res) => {
     let check = await User.findOne({ email });
 
     if (check) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "Email address already exits. Please try another email ",
       });
     }
@@ -74,11 +73,11 @@ exports.register = async (req, res) => {
       bMonth,
       bDay,
     }).save();
-    const emailVerificationToken = generateToken({ id: user._id }, "1h");
+    // const emailVerificationToken = generateToken({ id: user._id }, "1h");
 
-    const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
+    // const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
 
-    sendEmailVerification(user.email, user.first_name, url);
+    // sendEmailVerification(user.email, user.first_name, url);
 
     const token = generateToken({ id: user._id.toString() }, "30m");
     // console.log(token);
@@ -92,7 +91,7 @@ exports.register = async (req, res) => {
       message: "Register Success! Activate your email to start",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -108,10 +107,10 @@ exports.activateAccount = async (req, res) => {
         .json({ message: "This account is already activated" });
     } else {
       await User.findByIdAndUpdate(user.id, { varified: true });
-      res.status(200).json({ message: "Account has been activated" });
+      return res.status(200).json({ message: "Account has been activated" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -142,6 +141,6 @@ exports.login = async (req, res) => {
       message: "Login Success!",
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
