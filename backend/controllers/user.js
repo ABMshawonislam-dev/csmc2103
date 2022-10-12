@@ -73,11 +73,11 @@ exports.register = async (req, res) => {
       bMonth,
       bDay,
     }).save();
-    // const emailVerificationToken = generateToken({ id: user._id }, "1h");
+    const emailVerificationToken = generateToken({ id: user._id }, "1h");
 
-    // const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
+    const url = `${process.env.BASE_URL}/activate/${emailVerificationToken}`;
 
-    // sendEmailVerification(user.email, user.first_name, url);
+    sendEmailVerification(user.email, user.first_name, url);
 
     const token = generateToken({ id: user._id.toString() }, "30m");
     // console.log(token);
@@ -131,7 +131,7 @@ exports.login = async (req, res) => {
         .json({ message: "Invalid password.Please try again" });
     }
     const token = generateToken({ id: user._id }, "7d");
-    res.send({
+    return res.send({
       id: user._id,
       username: user.username,
       first_name: user.first_name,

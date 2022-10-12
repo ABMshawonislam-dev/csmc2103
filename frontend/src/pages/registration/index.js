@@ -20,6 +20,7 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { ImCross, ImCheckmark } from "react-icons/im";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const LoginButton = styled(Button)({
   backgroundColor: "#166FE5",
   color: "#fff",
@@ -51,6 +52,7 @@ const CssTextField = styled(TextField)({
   marginBottom: 15,
 });
 const Registration = () => {
+  let navigate = useNavigate();
   let [email, setEmail] = useState("");
   let [firstname, setFirstname] = useState("");
   let [firstnameerr, setFirstnameerr] = useState("");
@@ -129,8 +131,13 @@ const Registration = () => {
         bMonth: selectmonth,
         bDay: selectday,
       });
-      console.log(data.data);
       setSuccess(data.data.message);
+      setBerr("");
+
+      setTimeout(() => {
+        setSuccess("");
+        navigate("/login");
+      }, 2000);
     } catch (error) {
       setBerr(error.response.data.message);
     }

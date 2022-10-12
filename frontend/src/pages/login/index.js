@@ -16,6 +16,9 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { ImCross, ImCheckmark } from "react-icons/im";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../../slice/userSlice";
+import { useNavigate } from "react-router-dom";
 const LoginButton = styled(Button)({
   backgroundColor: "#166FE5",
   color: "#fff",
@@ -47,15 +50,14 @@ const CssTextField = styled(TextField)({
   marginBottom: 15,
 });
 const Login = () => {
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [emailerr, setEmailerr] = useState("");
   let [passworderr, setPassworderr] = useState("");
-  let [lowercase, setLowercase] = useState(false);
-  let [uppercase, setUppercase] = useState(false);
-  let [number, setNumber] = useState(false);
-  let [symbol, setSymbol] = useState(false);
-  let [length, setLength] = useState(false);
+  let [berr, setBerr] = useState("");
+  let [success, setSuccess] = useState("");
 
   let handleEmail = (e) => {
     setEmail(e.target.value);
@@ -64,29 +66,6 @@ const Login = () => {
 
   let handlePassword = (e) => {
     setPassword(e.target.value);
-    setPassworderr("");
-    if (!/^(?=.*[a-z])/.test(password)) {
-      setPassworderr("Lowercase Required");
-      setLowercase(false);
-    } else if (!/^(?=.*[A-Z])/.test(password)) {
-      setPassworderr("Uppercase Required");
-      setUppercase(false);
-      setLowercase(true);
-    } else if (!/^(?=.*[0-9])/.test(password)) {
-      setPassworderr("Number Required");
-      setNumber(false);
-      setUppercase(true);
-    } else if (!/^(?=.*[!@#$%^&*])/.test(password)) {
-      setPassworderr("Symbol Required");
-      setSymbol(false);
-      setNumber(true);
-    } else if (!/^(?=.{8,})/.test(password)) {
-      setPassworderr("Minimum 8 character");
-      setLength(false);
-      setSymbol(true);
-    } else {
-      setLength(true);
-    }
   };
 
   let handleSubmit = async () => {
@@ -95,9 +74,15 @@ const Login = () => {
         email: email,
         password: password,
       });
-      console.log(data.data);
+      dispatch(login(data.data));
+      setSuccess(data.data.message);
+
+      setTimeout(() => {
+        setSuccess("");
+        navigate("/");
+      }, 2000);
     } catch (error) {
-      console.log(error.response.data.message);
+      setBerr(error.response.data.message);
     }
   };
 
@@ -147,6 +132,24 @@ const Login = () => {
             )}
 
             <LoginButton onClick={handleSubmit}>Log In</LoginButton>
+            {berr && (
+              <Alert
+                style={{ marginBottom: "10px" }}
+                variant="filled"
+                severity="error"
+              >
+                {berr}
+              </Alert>
+            )}
+            {success && (
+              <Alert
+                style={{ marginTop: "10px" }}
+                variant="filled"
+                severity="success"
+              >
+                {success}
+              </Alert>
+            )}
             <Link to="/" className="forgot">
               Forgotten password?
             </Link>
