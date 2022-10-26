@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { Grid } from "@mui/material";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Newsfeed from "../../components/newsfeed/Newsfeed";
 const Home = () => {
   let navigate = useNavigate();
   let user = useSelector((state) => state);
@@ -12,7 +14,19 @@ const Home = () => {
       navigate("/login");
     }
   }, []);
-  return <div>Home</div>;
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
+      <Grid item xs={8}>
+        <Newsfeed />
+      </Grid>
+      <Grid item xs={1}>
+        <h1>xs=8</h1>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default Home;
