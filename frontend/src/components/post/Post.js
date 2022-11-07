@@ -1,4 +1,6 @@
 import React from "react";
+import { AiFillLike, AiOutlineShareAlt } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
 
 const Post = () => {
   return (
@@ -22,6 +24,39 @@ const Post = () => {
         quality and I’m gonna have access to games a month before the official
         release. This is a dream come true, thanks to all for the support!!!
       </p>
+      <div className="postinfo">
+        <div className="likeinfo">
+          <div>
+            <img src="images/like.png" />
+            <img src="images/love.png" />
+            <img src="images/angry.png" />
+          </div>
+          <p>12</p>
+        </div>
+        <div className="commentinfo">
+          <p>12 Comments</p>
+        </div>
+        <div className="shareinfo">
+          <p>2 Shares</p>
+        </div>
+      </div>
+      <div className="likeaction">
+        <div>
+          <AiFillLike /> Like
+          <div className="likeChoose">
+            <img src="images/like.png" />
+            <img src="images/love.png" />
+            <img src="images/angry.png" />
+            <img src="images/happy.png" />
+          </div>
+        </div>
+        <div>
+          <BiCommentDetail /> Comment
+        </div>
+        <div>
+          <AiOutlineShareAlt /> Share
+        </div>
+      </div>
     </div>
   );
 };

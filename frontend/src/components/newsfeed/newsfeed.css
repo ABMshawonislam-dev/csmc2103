@@ -182,7 +182,8 @@
 .newsfeedpost .post {
   height: 200px;
   background: #fff;
-  border-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   padding: 20px;
 }
 
@@ -226,4 +227,113 @@
   font-weight: 400;
   line-height: 18px;
   margin: 18px 0;
+}
+
+.postinfo {
+  border-top: 1px solid #d9d9d9;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.postinfo:after {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  width: 107.7%;
+  height: 1px;
+  background: #d5d5d5;
+  content: "";
+}
+
+.likeinfo {
+  display: flex;
+  column-gap: 13px;
+}
+
+.likeinfo img {
+  width: 20px;
+  height: 20px;
+  margin-left: -5px;
+}
+
+.likeinfo img:first-child {
+  margin-left: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.likeinfo img:nth-child(2) {
+  position: relative;
+  z-index: 1;
+}
+
+.likeinfo p {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.commentinfo p {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.shareinfo p {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.likeaction {
+  position: relative;
+  color: #d9d9d9;
+  padding: 23px 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+.likeaction:after {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  width: 107.7%;
+  height: 100%;
+  background: #fcfcfd;
+  content: "";
+  z-index: -1;
+}
+
+.likeaction div {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.likeChoose {
+  background: #fff;
+  padding: 13px;
+  border-radius: 50px;
+  display: flex;
+  column-gap: 10px;
+  -webkit-box-shadow: 0px 0px 44px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 44px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 44px 5px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: -63px;
+  left: 0;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s;
+}
+
+.likeaction:hover .likeChoose {
+  opacity: 1;
+  visibility: visible;
 }
