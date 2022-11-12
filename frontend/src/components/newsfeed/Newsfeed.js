@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { AiFillFacebook } from "react-icons/ai";
 import { BsFillPlayFill } from "react-icons/bs";
 import NewsFeedBottom from "../newsfeedbottom/NewsFeedBottom";
-const Newsfeed = () => {
+const Newsfeed = ({ isnewsfeed }) => {
   let userData = useSelector((state) => state.user.userInfo);
   return (
     <div className="newsfeed">
@@ -53,7 +53,8 @@ const Newsfeed = () => {
           </div>
         </div>
       </div>
-      <NewsFeedBottom />
+
+      <NewsFeedBottom isnewsfeed={isnewsfeed} />
     </div>
   );
 };

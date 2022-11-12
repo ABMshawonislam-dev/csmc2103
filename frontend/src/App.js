@@ -8,6 +8,7 @@ import Registration from "./pages/registration";
 import Navbar from "./components/nabvar/Navbar";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import Newsfeedpage from "./pages/neewsfeed/Newsfeedpage";
 
 function App() {
   let [user, setUser] = useState({});
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} exact></Route>
         <Route path="/profile" element={<Profile />} exact></Route>
         <Route path="/registration" element={<Registration />} exact></Route>
+        <Route path="/newsfeed" element={<Newsfeedpage />} exact></Route>
         <Route path="/" element={<Home />} exact></Route>
       </Routes>
     </>

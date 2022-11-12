@@ -75,6 +75,7 @@ const Login = () => {
         password: password,
       });
       dispatch(login(data.data));
+      localStorage.setItem("userinfo", JSON.stringify(data.data));
       setSuccess(data.data.message);
 
       setTimeout(() => {
